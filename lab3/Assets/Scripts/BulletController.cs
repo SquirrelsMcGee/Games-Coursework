@@ -6,15 +6,17 @@ public class BulletController : MonoBehaviour
 {
     
     public float speed = 5.0f;
+    public GameObject childSphere;
+
+    private Rigidbody r;
     // Start is called before the first frame update
     void Start()
     {
-        Rigidbody r = GetComponent<Rigidbody>();
+        r = GetComponent<Rigidbody>();
         r.velocity = transform.forward * speed;
 
-
-        // Destroys self after 10 seconds
-        Destroy(gameObject, 10);
+        // Destroys self after 20 seconds
+        Destroy(gameObject, 20);
     }
 
     // Update is called once per frame
@@ -26,6 +28,16 @@ public class BulletController : MonoBehaviour
     // Destroy self after collision
     void OnCollisionEnter(Collision collision)
     {
-        Destroy(gameObject);        
+        // Fix location
+        r.constraints = RigidbodyConstraints.FreezePosition;
+
+        // Destroy self
+        Destroy(gameObject, 1);        
+    }
+
+
+    void OnDestroy()
+    {
+        //if (childSphere != null) Destroy(childSphere, 1);
     }
 }
