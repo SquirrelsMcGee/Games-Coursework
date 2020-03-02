@@ -45,5 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpawn: 1
   spawnDelay: 1
-  targetTemplate: {fileID: 8019158196180408990, guid: a9cae80389132974a9e86066427efcb9,
-    type: 3}
+  targetTemplates:
+  - {fileID: 8019158196180408990, guid: a9cae80389132974a9e86066427efcb9, type: 3}
+  - {fileID: 3984266690902615807, guid: 6c7729687ad318f468a65a7ce7fa0cbe, type: 3}
+  targetScale: {x: 1, y: 1, z: 1}
