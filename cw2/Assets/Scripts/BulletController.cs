@@ -27,17 +27,24 @@ public class BulletController : MonoBehaviour
     // Destroy self after collision
     void OnCollisionEnter(Collision collision)
     {
+
+        //Debug.Log(collision.gameObject.tag);
         // Fix location
         r.constraints = RigidbodyConstraints.FreezePosition;
 
-        if (collision.gameObject.CompareTag("Enemy"))
+        switch (collision.gameObject.tag)
         {
-            collision.gameObject.GetComponent<BasicEnemyController>().health -= 1;
+            case "Enemy":
+                collision.gameObject.GetComponent<BasicEnemyController>().health -= 1;
+                break;
+            case "Target":
+                collision.gameObject.GetComponent<TargetController>().health -= 1;
+                break;
+            case "Shield":
+                collision.gameObject.GetComponent<ShieldController>().health -= 1;
+                break;
         }
-        if (collision.gameObject.CompareTag("Target"))
-        {
-            // Target take damage
-        }
+
 
         // Destroy self
         Destroy(gameObject);

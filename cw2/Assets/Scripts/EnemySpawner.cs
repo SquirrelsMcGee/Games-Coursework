@@ -15,6 +15,11 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        StartLevel();
+    }
+
+    public void StartLevel()
+    {
         StartCoroutine(SpawnLoop());
     }
 
@@ -22,10 +27,10 @@ public class EnemySpawner : MonoBehaviour
     {
 
         Vector3 v = maxX.position - minX.position;
-        Vector3 target_position = minX.position + Random.value * v;
+        Vector3 destination = minX.position + Random.value * v;
 
         GameObject enemyInstance = Instantiate(enemyPrefab, transform.position, transform.rotation);
-        enemyInstance.GetComponent<BasicEnemyController>().destination = target_position;
+        enemyInstance.GetComponent<BasicEnemyController>().destination = destination;
         enemyInstance.GetComponent<BasicEnemyController>().targetPosition = target;
     }
 
@@ -41,5 +46,6 @@ public class EnemySpawner : MonoBehaviour
                 yield return wait;
             }
         }
+        yield return null;
     }
 }

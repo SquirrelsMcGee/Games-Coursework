@@ -15,6 +15,9 @@ MonoBehaviour:
   spawnRate: 3
   targetHealth: 100
   enemyList:
+  - enemyPrefab: {fileID: 4778199349140278426, guid: 29eedc271515a544c8403b1ab0dd79c7,
+      type: 3}
+    count: 0
   - enemyPrefab: {fileID: 4778199349140278426, guid: ee6c87f90fa175547b0464db126fa5ed,
       type: 3}
-    count: 5
+    count: 8

@@ -7,6 +7,7 @@ public class BasicTurretController : MonoBehaviour
 
     public GameObject bulletPrefab;
 
+    public Transform weaponTransform;
     public Transform shotTransform;
 
     public float fireRate = 1.0f;
@@ -40,7 +41,7 @@ public class BasicTurretController : MonoBehaviour
             return;
         }
 
-        transform.LookAt(targetEnemy.transform);
+        weaponTransform.LookAt(targetEnemy.transform);
 
         deltaTime += Time.deltaTime;
 

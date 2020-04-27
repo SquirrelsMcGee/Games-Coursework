@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Target
   - Enemy
+  - Friendly
+  - Shield
+  - BuildZone
   layers:
   - Default
   - TransparentFX
@@ -15,10 +18,10 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Friendly
+  - Shield
+  - BuildZone
   - 
   - 
   - 

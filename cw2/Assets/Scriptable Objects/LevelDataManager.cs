@@ -18,17 +18,21 @@ public class LevelDataManager : ScriptableObject
     public int spawnRate = 1;
     public int targetHealth = 50;
 
-    public float totalEnemies
+    public int totalEnemies
     {
         get
         {
-            return 0;
+            int temp = 0;
+            foreach (EnemyData data in enemyList)
+            {
+                temp += data.count;
+            }
+            return temp;
         }
         private set {
             totalEnemies = value;
         }
     }
-
     
     public EnemyData[] enemyList;
 }

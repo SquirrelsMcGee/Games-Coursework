@@ -1,53 +1,54 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using TMPro;
 using UnityEngine.UI;
 
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class BasicEnemyController : MonoBehaviour
 {
-
-    NavMeshAgent agent;
-
+    [HideInInspector]
     public Transform targetPosition;
+    [HideInInspector]
     public Vector3 destination;
 
+    public Transform weaponTransform;
     public Transform shotTransform;
     public GameObject bulletPrefab;
 
-    //public TextMeshPro textUI;
     public TextMeshProUGUI textUI;
 
     public float fireRate = 1.0f;
-    private float deltaTime = 0;
-
+    [HideInInspector]
     public int health = 0;
     public int maxHealth = 5;
 
+    protected NavMeshAgent agent;
+    protected float deltaTime = 0;
+
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.destination = destination;
 
         health = maxHealth;
+
+        GameController.Instance.GameEventLoss += OnGameEnd;
+        GameController.Instance.GameEventLoss += OnGameLoss;
+        GameController.Instance.GameEventLoss += OnGameWin;
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if (agent.isStopped)
         {
-            deltaTime += Time.deltaTime;
-            if (deltaTime >= fireRate) {
-                deltaTime = 0;
-                Instantiate(bulletPrefab, shotTransform.position, shotTransform.rotation);
-            }
+            TimedUpdate();
 
-            transform.LookAt(targetPosition);
+            weaponTransform.LookAt(targetPosition);
         }
 
         
@@ -59,11 +60,50 @@ public class BasicEnemyController : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void OnTriggerEnter(Collider other)
+
+    protected virtual void TimedUpdate()
     {
+        deltaTime += Time.deltaTime;
+        if (deltaTime >= fireRate)
+        {
+            deltaTime = 0;
+            Instantiate(bulletPrefab, shotTransform.position, shotTransform.rotation);
+        }
+    }
+    protected void OnTriggerEnter(Collider other)
+    {
+        StartCoroutine(DelayedTrigger(other, 0.0f));
+    }
+
+    IEnumerator DelayedTrigger(Collider other, float delay)
+    {
+        yield return new WaitForSeconds(delay);
         if (other.gameObject.CompareTag("Target"))
         {
             agent.isStopped = true;
         }
+    }
+
+    protected virtual void OnDestroy()
+    {
+        GameController.Instance.achievedScore += 1;
+        GameController.Instance.GameEventLoss -= OnGameEnd;
+        GameController.Instance.GameEventLoss -= OnGameLoss;
+        GameController.Instance.GameEventLoss -= OnGameWin;
+    }
+
+    protected virtual void OnGameEnd(object s, GameEventArgs e)
+    {
+        Destroy(gameObject);
+    }
+
+    protected virtual void OnGameWin(object s, GameEventArgs e)
+    {
+        // Stub
+    }
+
+    protected virtual void OnGameLoss(object s, GameEventArgs e)
+    {
+        // Stub
     }
 }
