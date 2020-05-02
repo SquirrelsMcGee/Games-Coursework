@@ -14,7 +14,7 @@ public class PathFollower : MonoBehaviour
     void Start()
     {
         Vector3[] waypoints = new Vector3[pathHolder.childCount];
-        Debug.Log(waypoints.Length);
+        //Debug.Log(waypoints.Length);
         for (int i = 0; i < waypoints.Length; i++)
         {
             waypoints[i] = pathHolder.GetChild(i).position;

@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 2777634893617124216}
   m_Layer: 8
   m_Name: MovingTarget
-  m_TagString: Untagged
+  m_TagString: TargetTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

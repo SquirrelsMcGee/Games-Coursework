@@ -8,12 +8,19 @@ public class Destructable : MonoBehaviour
     private bool selfDestruct = false;
     private Vector3 scale;
 
+    private GameController gc;
+
     public float shrinkFactor = 0.9f;
+
+    void Awake()
+    {
+        
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        gc = GameObject.Find("GameDirector").GetComponent<GameController>();
     }
 
     // Update is called once per frame
@@ -28,6 +35,8 @@ public class Destructable : MonoBehaviour
             if (transform.localScale.x <= 0.01)
             {
                 Destroy(gameObject);
+                gc.UpdateScore();
+                gc.UpdateHits();
             }
 
         }
