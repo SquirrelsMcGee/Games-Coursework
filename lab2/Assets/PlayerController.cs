@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
 
+    public LayerMask hazardMask;
+    public GameObject winPanel;
     public float speed = 2.0f;
     private Rigidbody2D r;
     private Animator a;
@@ -31,6 +34,8 @@ public class PlayerController : MonoBehaviour
         r = GetComponent<Rigidbody2D>();
         a = GetComponent<Animator>();
         s = GetComponent<SpriteRenderer>();
+
+        winPanel.SetActive(false);
     }
 
     private void Update()
@@ -71,6 +76,7 @@ public class PlayerController : MonoBehaviour
             canJump = false;
             // Jump
             yMove = 1.5f * gravity;
+            transform.SetParent(null);
         }
 
         // Test the ground immediately below the Player
@@ -85,5 +91,31 @@ public class PlayerController : MonoBehaviour
         velocity.x = xMove;
         velocity.y = yMove;
         r.velocity = new Vector2(velocity.x, velocity.y);
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        // Reset scene if hazard hit
+        if (collision.gameObject.layer == 10)
+        {
+            SceneManager.LoadScene(0);
+            return;
+        }
+
+        // Show finish screen if reached end point
+        if (collision.gameObject.layer == 12)
+        {
+            winPanel.SetActive(true);
+            return;
+        }
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        // For moving platforms, the player needs to be a child of the object to move with them
+        if (collision.gameObject.layer == 8)
+        {
+            transform.SetParent(collision.transform);
+        }
     }
 }

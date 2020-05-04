@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
 
     public float speed = 0.5f;
+    private float _speed = 0;
     private Rigidbody r;
 
     private float horizontalMovement = 0.0f;
@@ -31,9 +32,9 @@ public class PlayerController : MonoBehaviour
     {
         horizontalMovement= Input.GetAxis("Horizontal");
         verticalMovement = Input.GetAxis("Vertical");
-        Debug.Log("Input: " + horizontalMovement + " " + verticalMovement);
-
-        r.velocity = new Vector3(horizontalMovement * speed, 0.0f, verticalMovement * speed);
+        //Debug.Log("Input: " + horizontalMovement + " " + verticalMovement);
+        _speed = speed + (GameController.Instance.waveIndex + 1);
+        r.velocity = new Vector3(horizontalMovement * _speed, 0.0f, verticalMovement * _speed);
 
         r.position = new Vector3(
             Mathf.Clamp(r.position.x, xMin, xMax),
