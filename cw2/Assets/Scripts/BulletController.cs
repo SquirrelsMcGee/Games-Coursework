@@ -5,7 +5,11 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
 
+    public LayerMask parentLayerMask;
+
     public float speed = 5.0f;
+
+    public int damage = 1;
     private Rigidbody r;
 
     // Start is called before the first frame update
@@ -32,22 +36,30 @@ public class BulletController : MonoBehaviour
         // Fix location
         r.constraints = RigidbodyConstraints.FreezePosition;
 
+        if (collision.gameObject.layer == parentLayerMask)
+        {
+            // prevent friendly-fire
+            Destroy(gameObject);
+            return;
+        }
+
         switch (collision.gameObject.tag)
         {
             case "Enemy":
-                collision.gameObject.GetComponent<BasicEnemyController>().health -= 1;
+                collision.gameObject.GetComponent<BasicEnemyController>().health -= damage;
                 break;
             case "Target":
-                collision.gameObject.GetComponent<TargetController>().health -= 1;
+                collision.gameObject.GetComponent<TargetController>().health -= damage;
                 break;
             case "Shield":
-                collision.gameObject.GetComponent<ShieldController>().health -= 1;
+                collision.gameObject.GetComponent<ShieldController>().health -= damage;
                 break;
         }
 
-
         // Destroy self
-        Destroy(gameObject);
+        // Bullets automatically get destroyed upon timeout,
+        // so prevent them from colliding with terrain
+        if (gameObject.layer != LayerMask.GetMask("BuildZone")) Destroy(gameObject);
     }
 
 }
