@@ -4,32 +4,34 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Layer where sentries can be places")]
+    public LayerMask buildzoneLayer;
 
-    public LayerMask layerMask;
-
-    public float angleScale = 1.0f;
-    public float placeableDistance = 1.0f;
-
-    public int buildCost = 1;
-
-    public GameObject turretPrefab;
-
+    [Header("Variables for sentry positioning")]
+    public float forwardDistance = 1.0f;
+    public float angledDistance = 1.0f;
+    
     private Vector3 vectorPointA;
     private Vector3 vectorPointB;
     private Vector3 vectorDirectionY;
     private Vector3 vectorDirectionAngle;
-    private Vector3 placePosition;
+    public Vector3 placePosition { get; private set; } // Needs to be public so that the placeable item scripts can access it
 
-    public bool placeable = false;
+    [HideInInspector]
+    public bool turretPlaceable = false;
 
-    private float deltaTime = 0;
-    private float inputRate = 1;
+    public static PlayerController Instance { get; private set; }
 
-    private GameController gameController;
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else { Destroy(gameObject);  }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        gameController = GameController.Instance;
+
     }
 
     // Update is called once per frame
@@ -37,38 +39,11 @@ public class PlayerController : MonoBehaviour
     {
         // raycast forward and down to the floor to see if the player can place an object
         CalculatePlacePosition();
-        GetMouseButtonInput();
-    }
-
-    void GetMouseButtonInput()
-    {
-        deltaTime += Time.deltaTime;
-        if (deltaTime >= inputRate)
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                TryBuilding();
-            }
-        }
-    }
-
-    void TryBuilding()
-    {
-        if (placeable)
-        {
-            // If player can place an object
-            // Check if player has the funds
-            if (gameController.achievedScore > gameController.usedScore + buildCost)
-            {
-                Instantiate(turretPrefab, placePosition, transform.rotation);
-                gameController.usedScore += buildCost;
-            }
-        }
     }
 
     void CalculatePlacePosition()
     {
-        vectorPointA = transform.position + (transform.forward * angleScale);
+        vectorPointA = transform.position + (transform.forward * forwardDistance);
         vectorDirectionY = (transform.up * -1);
         vectorPointB = vectorPointA + vectorDirectionY;
 
@@ -76,14 +51,14 @@ public class PlayerController : MonoBehaviour
 
         Ray ray = new Ray(transform.position, -vectorDirectionAngle);
         RaycastHit hitInfo;
-        placeable = Physics.Raycast(ray, out hitInfo, placeableDistance, layerMask);
-        if (placeable)
+        turretPlaceable = Physics.Raycast(ray, out hitInfo, angledDistance, buildzoneLayer);
+        if (turretPlaceable)
         {
             placePosition = hitInfo.point;
         }
         if (hitInfo.collider != null)
         {
-            if (hitInfo.collider.isTrigger) placeable = false;
+            if (hitInfo.collider.isTrigger) turretPlaceable = false;
         }
     }
 

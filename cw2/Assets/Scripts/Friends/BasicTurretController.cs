@@ -8,21 +8,21 @@ public class BasicTurretController : MonoBehaviour
     public GameObject bulletPrefab;
 
     public Transform weaponTransform;
-    public Transform shotTransform;
+    public Transform[] shotTransform;
 
     public float fireRate = 1.0f;
-    private float deltaTime = 0.0f;
+    protected float deltaTime = 0.0f;
 
     public float range = 10.0f;
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
 
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         GameObject targetEnemy = FindClosestEnemy();
 
@@ -48,7 +48,7 @@ public class BasicTurretController : MonoBehaviour
         if (deltaTime >= fireRate)
         {
             deltaTime = 0;
-            GameObject bullet = Instantiate(bulletPrefab, shotTransform.position, shotTransform.rotation);
+            GameObject bullet = Instantiate(bulletPrefab, shotTransform[0].position, shotTransform[0].rotation);
             bullet.GetComponent<BulletController>().parentLayerMask = gameObject.layer;
         }
     }

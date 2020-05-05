@@ -11,6 +11,8 @@ public class HUDHints : MonoBehaviour
 
     public HintsDataManager hintsData;
 
+    public bool SkipTutorial = false;
+
     private HintItem currentHint;
     private GameObject currentAppearObject;
 
@@ -55,12 +57,11 @@ public class HUDHints : MonoBehaviour
             if (currentHint.type == HintType.Timed)
             {
                 hintText.text = currentHint.hintText;
-                yield return new WaitForSeconds(currentHint.time);
+                if (!SkipTutorial) yield return new WaitForSeconds(currentHint.time);
             } 
             else if (currentHint.type == HintType.Wait)
             {
                 hintText.text = currentHint.hintText;
-                
                 yield return new WaitUntil(() => waitHintFlag);
                 waitHintFlag = false;
             }
@@ -70,9 +71,10 @@ public class HUDHints : MonoBehaviour
             obj = null;
         }
 
+
+        // Start Level
         hintPanel.SetActive(false);
+        EnemySpawner.Instance.StartLevel();
         yield return null;
     }
-
-
 }

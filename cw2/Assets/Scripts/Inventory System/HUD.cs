@@ -6,7 +6,7 @@ using TMPro;
 
 public class HUD : MonoBehaviour
 {
-    public InventoryDataManager inventory;
+    public Inventory inventory;
     public GameObject slotPrefab;
 
     public Transform inventoryPanel;
@@ -21,6 +21,13 @@ public class HUD : MonoBehaviour
         PopulateHotBar();
 
         inventory.ItemSwitchEvent += OnItemSwitched;
+
+        if (inventory.list[0] != null)
+        {
+            inventoryPanel.GetChild(0).GetComponent<Outline>().enabled = true;
+        }
+
+        Debug.Log(inventory.list.Count);
     }
 
     // Update is called once per frame
@@ -45,15 +52,17 @@ public class HUD : MonoBehaviour
         ItemData item;
         GameObject slot;
 
-        for (int itemIndex = 0; itemIndex < inventory.inventoryItems.Count; itemIndex++)
+        for (int itemIndex = 0; itemIndex < inventory.list.Count; itemIndex++)
         {
             slot = Instantiate(slotPrefab, inventoryPanel);
 
-            item = inventory.inventoryItems[itemIndex];
-            print(item == null);
+            item = inventory.list[itemIndex];
+            //print(item.previewImage == null);
             if (item.previewImage != null)
             {
                 slot.GetComponent<Image>().enabled = true;
+                slot.GetComponent<Image>().sprite = item.previewImage;
+                slot.transform.GetChild(0).gameObject.SetActive(false); // Hide text if showing image :)
             }
             else
             {
@@ -73,12 +82,13 @@ public class HUD : MonoBehaviour
 
     void OnItemSwitched(object sender, InventoryEventArgs e)
     {
-        for (int itemIndex = 0; itemIndex < inventory.inventoryItems.Count; itemIndex++)
+        //Debug.Log(e.item.itemName);
+        for (int itemIndex = 0; itemIndex < inventory.list.Count; itemIndex++)
         {
             GameObject itemSlot = inventoryPanel.GetChild(itemIndex).gameObject;
             if (itemSlot != null)
             {
-                itemSlot.GetComponent<Outline>().enabled = (inventory.inventoryItems[itemIndex] == e.item);
+                itemSlot.GetComponent<Outline>().enabled = (inventory.list[itemIndex] == e.item);
             }
         }
     }

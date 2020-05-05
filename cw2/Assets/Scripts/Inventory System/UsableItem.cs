@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class UsableItem : MonoBehaviour
 {
-    public virtual void UseItem()
+    public virtual bool UseItem(int useCost)
     {
-        print("Item Used");
+        print("Item Used for " + useCost);
+        return false;
     }
 }

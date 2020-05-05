@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class PlayerItemController : MonoBehaviour
 {
-    public InventoryDataManager inventory;
+
+    private GameObject previewTurret;
+    public Inventory inventory;
+
     // Start is called before the first frame update
     void Start()
     {
-        if (inventory.inventoryItems[0] != null)
+        if (inventory.list[0] != null)
         {
-            inventory.selectedItem = inventory.inventoryItems[0];
+            inventory.selectedItem = inventory.list[0];
         }
 
         if (inventory != null)
@@ -23,18 +26,20 @@ public class PlayerItemController : MonoBehaviour
     void Update()
     {
         // Get input from number row
-        for (int i = 0; i < inventory.inventoryItems.Count; i++)
+        for (int i = 0; i < inventory.list.Count; i++)
         {
             //
             if (Input.GetKeyDown(KeyCode.Alpha1 + i))
             {
-                if (inventory.inventoryItems[i].enabled)
+                Debug.Log(KeyCode.Alpha1 + i);
+                if (inventory.list[i].enabled)
                 {  
-                    inventory.selectedItem = inventory.inventoryItems[i];
+                    inventory.selectedItem = inventory.list[i];
                     inventory.SwitchItem();
                 }
             }
         }
+
 
         if (Input.GetButtonDown("Fire1"))
         {
@@ -42,9 +47,34 @@ public class PlayerItemController : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+
+        if (previewTurret != null)
+        {
+
+            previewTurret.SetActive(false);
+            if (PlayerController.Instance.turretPlaceable)
+            {
+                if (GameController.Instance.achievedScore >= GameController.Instance.usedScore + inventory.selectedItem.useCost)
+                {
+                    previewTurret.SetActive(true);
+                    previewTurret.transform.position = PlayerController.Instance.placePosition;
+                    previewTurret.transform.rotation = PlayerController.Instance.transform.rotation;
+                }
+            }
+        }
+    }
+
     public void ItemSwitched(object sender, InventoryEventArgs e)
     {
         ItemData item = e.item;
-        print(item.itemName);
+
+        Destroy(previewTurret);
+
+        if (item.previewObject != null)
+        {
+            previewTurret = Instantiate(item.previewObject);
+        }
     }
 }

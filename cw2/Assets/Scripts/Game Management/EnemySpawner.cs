@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
 
+    public bool startOnLoad = true;
+
     [HideInInspector]
     public LevelDataManager levelData;
     public Transform target;
@@ -14,10 +16,19 @@ public class EnemySpawner : MonoBehaviour
 
     private bool inProgress = false;
 
+
+    public static EnemySpawner Instance { get; private set; } // static singleton
+
+    void Awake()
+    {
+        if (Instance == null) { Instance = this; }
+        else { Destroy(gameObject); }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        StartLevel();
+        if (startOnLoad) StartLevel();
         GameController.Instance.GameEventLoss += OnGameLoss;
     }
 

@@ -13,19 +13,27 @@ MonoBehaviour:
   m_Name: Inventory1
   m_EditorClassIdentifier: 
   inventoryItems:
-  - itemName: item 1
+  - itemName: BasicGun
     previewImage: {fileID: 0}
     previewObject: {fileID: 0}
     usableObject: {fileID: 0}
+    itemType: 1
+    useCost: 0
     enabled: 1
-  - itemName: item 2
-    previewImage: {fileID: 0}
-    previewObject: {fileID: 0}
-    usableObject: {fileID: 0}
+  - itemName: BasicTurret
+    previewImage: {fileID: 21300000, guid: a300435ae59b2944b9dab29805316fbd, type: 3}
+    previewObject: {fileID: 4625449733832210946, guid: a3d6911b100f5c446882f21e87ff0214,
+      type: 3}
+    usableObject: {fileID: 2056896548407475597, guid: 53136bb139eea6940b09b457c4ad689c,
+      type: 3}
+    itemType: 0
+    useCost: 0
     enabled: 1
   selectedItem:
-    itemName: item 1
+    itemName: BasicGun
     previewImage: {fileID: 0}
     previewObject: {fileID: 0}
     usableObject: {fileID: 0}
+    itemType: 1
+    useCost: 0
     enabled: 1

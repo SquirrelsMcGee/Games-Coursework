@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55223ec63e9996848a69e260aa879cbb, type: 3}
   m_Name: Level2Data
   m_EditorClassIdentifier: 
-  spawnRate: 3
-  targetHealth: 75
+  spawnRate: 2
+  targetHealth: 50
   enemyList:
-  - enemyPrefab: {fileID: 4778199349140278426, guid: 29eedc271515a544c8403b1ab0dd79c7,
-      type: 3}
-    count: 1
   - enemyPrefab: {fileID: 4778199349140278426, guid: ee6c87f90fa175547b0464db126fa5ed,
       type: 3}
-    count: 2
+    count: 3
   - enemyPrefab: {fileID: 4778199349140278426, guid: 29eedc271515a544c8403b1ab0dd79c7,
       type: 3}
     count: 1
   - enemyPrefab: {fileID: 4778199349140278426, guid: ee6c87f90fa175547b0464db126fa5ed,
       type: 3}
     count: 3
+  - enemyPrefab: {fileID: 4778199349140278426, guid: 29eedc271515a544c8403b1ab0dd79c7,
+      type: 3}
+    count: 1

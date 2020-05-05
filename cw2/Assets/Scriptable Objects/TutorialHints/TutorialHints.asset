@@ -26,3 +26,8 @@ MonoBehaviour:
     type: 0
     time: 7
     appearObject: {fileID: 0}
+  - hintText: Press the Enter key to start the level
+    type: 1
+    time: 0
+    appearObject: {fileID: 3474171218644464590, guid: 70523c84a8de07047bc6669f1c3cbe82,
+      type: 3}
