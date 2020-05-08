@@ -10,6 +10,10 @@ public class PlayerController : MonoBehaviour
     [Header("Variables for sentry positioning")]
     public float forwardDistance = 1.0f;
     public float angledDistance = 1.0f;
+
+    [Header("Weapon Transforms")]
+    public Transform shotTransform;
+    public Transform weaponTransform;
     
     private Vector3 vectorPointA;
     private Vector3 vectorPointB;
@@ -64,6 +68,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Gizmos.DrawLine(transform.position, transform.forward * 1.5f);
+
+        if (shotTransform != null) Gizmos.DrawSphere(shotTransform.position, 0.1f);
+        if (weaponTransform != null) Gizmos.DrawSphere(weaponTransform.position, 0.1f);
+
+
         if (placePosition == null) return;
         
         Gizmos.color = Color.yellow;

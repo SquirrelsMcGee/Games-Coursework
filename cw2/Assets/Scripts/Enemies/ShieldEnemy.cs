@@ -10,6 +10,8 @@ public class ShieldEnemy : BasicEnemyController
 
     string prefix = "";
 
+    bool hasTurretTarget = false;
+
     protected override void Start()
     {
         targetTurret = ChooseRandomTurret();
@@ -17,6 +19,7 @@ public class ShieldEnemy : BasicEnemyController
         {
             targetPosition = targetTurret.transform;
             destination = targetPosition.transform.position;
+            hasTurretTarget = true;
         }
 
         base.Start();
@@ -25,8 +28,20 @@ public class ShieldEnemy : BasicEnemyController
     // Update is called once per frame
     protected override void Update()
     {
+
+        if (!hasTurretTarget)
+        {
+            targetTurret = ChooseRandomTurret();
+            {
+                targetPosition = targetTurret.transform;
+                destination = targetPosition.transform.position;
+                hasTurretTarget = true;
+            }
+        }
+
         if (agent.isStopped)
         {
+            
             if (targetPosition != null) {
                 if (targetTurret != null)
                 {

@@ -15,9 +15,10 @@ public class SpawnTurret : UsableItem
             if (GameController.Instance.achievedScore >= GameController.Instance.usedScore + useCost)
             {
                 Instantiate(turretPrefab, PlayerController.Instance.placePosition, PlayerController.Instance.transform.rotation);
-                GameController.Instance.usedScore += useCost;
+                GameController.Instance.UseScore(useCost);
             }
         }
+        print("Used Score: " + GameController.Instance.usedScore);
         return false;
     }
 }

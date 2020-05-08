@@ -36,7 +36,9 @@ public class GameController : MonoBehaviour
     {
         enemySpawner = GetComponent<EnemySpawner>();
         enemySpawner.levelData = levelData[0];
-        requiredScore = levelData[0].totalEnemies;
+        requiredScore = levelData[0].totalEnemies * enemySpawner.spawnMultiplier;
+
+        print("Required Score: " + requiredScore);
 
         totalLevels = levelData.Length;
         currentLevel = 0;
@@ -54,6 +56,16 @@ public class GameController : MonoBehaviour
             achievedScore = 0;
             GameEnd(GameStates.Win);
         }
+    }
+
+    public void AddScore(int add)
+    {
+        achievedScore += add;
+    }
+
+    public void UseScore(int add)
+    {
+        usedScore += add;
     }
 
     public void GameEnd(GameStates state)
@@ -90,7 +102,7 @@ public class GameController : MonoBehaviour
             currentLevel += 1;
 
             enemySpawner.levelData = levelData[currentLevel];
-            requiredScore = levelData[currentLevel].totalEnemies;
+            requiredScore = levelData[currentLevel].totalEnemies * enemySpawner.spawnMultiplier;
 
             enemySpawner.StartLevel();
 

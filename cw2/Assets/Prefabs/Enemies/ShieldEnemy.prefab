@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3917161356845862041}
   - component: {fileID: 2371142956959513478}
   m_Layer: 10
-  m_Name: Sphere
+  m_Name: Shield
   m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textUI: {fileID: 3565431672811982129}
-  maxHealth: 5
+  maxHealth: 10
   health: 0
 --- !u!1 &3167319515548562482
 GameObject:
@@ -880,7 +880,9 @@ MonoBehaviour:
   weaponTransform: {fileID: 2918510686711636348}
   shotTransform: {fileID: 0}
   bulletPrefab: {fileID: 0}
+  animator: {fileID: 0}
   textUI: {fileID: 4778199349052832853}
+  damage: 10
   fireRate: 1
   health: 0
   maxHealth: 5

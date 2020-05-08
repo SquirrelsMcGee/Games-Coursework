@@ -7,12 +7,17 @@ public class EnemySpawner : MonoBehaviour
 
     public bool startOnLoad = true;
 
+    [Range(0, 10)]
+    public int spawnMultiplier = 1; // Multiplies the number of enemies spawned
+
     [HideInInspector]
     public LevelDataManager levelData;
     public Transform target;
 
     public Transform maxX;
     public Transform minX;
+
+    public Transform[] enemySpawnPoints;
 
     private bool inProgress = false;
 
@@ -44,7 +49,9 @@ public class EnemySpawner : MonoBehaviour
         Vector3 v = maxX.position - minX.position;
         Vector3 destination = minX.position + Random.value * v;
 
-        GameObject enemyInstance = Instantiate(enemyPrefab, transform.position, transform.rotation);
+        Transform spawnPoint = enemySpawnPoints[Random.Range(0, enemySpawnPoints.Length)];
+
+        GameObject enemyInstance = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
         enemyInstance.GetComponent<BasicEnemyController>().destination = destination;
         enemyInstance.GetComponent<BasicEnemyController>().targetPosition = target;
     }
@@ -61,8 +68,12 @@ public class EnemySpawner : MonoBehaviour
             for (int i = 0; i < enemyData.count; i++)
             {
                 if (!inProgress) break;
-                SpawnEnemy(enemyData.enemyPrefab);
-                yield return wait;
+
+                for (int j = 0; j < spawnMultiplier; j++)
+                {
+                    SpawnEnemy(enemyData.enemyPrefab);
+                    yield return wait;
+                }
             }
         }
         yield return null;
@@ -74,6 +85,14 @@ public class EnemySpawner : MonoBehaviour
         if (e.state == GameStates.Loss)
         {
             inProgress = false;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        foreach (Transform spawnPoint in enemySpawnPoints)
+        {
+            Gizmos.DrawSphere(spawnPoint.position, 0.3f);
         }
     }
 }

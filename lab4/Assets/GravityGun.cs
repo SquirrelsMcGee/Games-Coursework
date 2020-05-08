@@ -25,7 +25,7 @@ public class GravityGun : MonoBehaviour
             if (heldObject == null)
             {
                 RaycastHit colliderHit;
-                if (Physics.Raycast(transform.position, transform.forward, out colliderHit, 10.0f, layerMask))
+                if (Physics.Raycast(transform.position, transform.forward, out colliderHit, 20.0f, layerMask))
                 {
                     // pick up the object 
                     heldObject = colliderHit.collider.gameObject;

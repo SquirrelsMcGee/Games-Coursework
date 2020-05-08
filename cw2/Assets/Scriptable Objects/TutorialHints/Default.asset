@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c722b00f4b1e84a4f9c7dd0e907a13ec, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: 
+  hints:
+  - hintText: Press Enter to begin the level.
+    type: 1
+    time: 0
+    appearObject: {fileID: 3474171218644464590, guid: 70523c84a8de07047bc6669f1c3cbe82,
+      type: 3}
+  - hintText: Round begins in 3 seconds. Good luck!
+    type: 0
+    time: 3
+    appearObject: {fileID: 0}

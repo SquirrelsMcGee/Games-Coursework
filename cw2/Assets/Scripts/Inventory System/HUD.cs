@@ -6,13 +6,25 @@ using TMPro;
 
 public class HUD : MonoBehaviour
 {
-    public Inventory inventory;
-    public GameObject slotPrefab;
+    /*
+     * Public Variables 
+    */
 
+    [Header("Inventory References", order = 0)]
+    public Inventory inventory;
     public Transform inventoryPanel;
 
+    [Header("UI References", order = 1)]
+    // Used for displaying tower helath
     public Image healthUIBackground;
     public TextMeshProUGUI towerHealthUI;
+
+    // Used for displaying item information to the player
+    public TextMeshProUGUI infoText;
+    public GameObject infoPanel;
+
+    [Header("Prefab Objects", order = 1)]
+    public GameObject slotPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +39,7 @@ public class HUD : MonoBehaviour
             inventoryPanel.GetChild(0).GetComponent<Outline>().enabled = true;
         }
 
-        Debug.Log(inventory.list.Count);
+        inventory.SwitchItem();
     }
 
     // Update is called once per frame
@@ -82,7 +94,6 @@ public class HUD : MonoBehaviour
 
     void OnItemSwitched(object sender, InventoryEventArgs e)
     {
-        //Debug.Log(e.item.itemName);
         for (int itemIndex = 0; itemIndex < inventory.list.Count; itemIndex++)
         {
             GameObject itemSlot = inventoryPanel.GetChild(itemIndex).gameObject;
@@ -90,6 +101,15 @@ public class HUD : MonoBehaviour
             {
                 itemSlot.GetComponent<Outline>().enabled = (inventory.list[itemIndex] == e.item);
             }
+        }
+
+        infoText.text = e.item.itemName + "\n";
+        if (e.item.itemType == ItemType.Turret)
+        {
+            infoText.text += "Build cost: " + e.item.useCost + "\n";
+            infoText.text += "Can Build: "  + (GameController.Instance.achievedScore >= GameController.Instance.usedScore + e.item.useCost).ToString();
+        } else {
+            infoText.text += "Fire Delay: " + e.item.useCost + "ms";
         }
     }
 }

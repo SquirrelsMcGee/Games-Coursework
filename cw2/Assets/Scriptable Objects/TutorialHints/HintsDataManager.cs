@@ -12,6 +12,7 @@ public enum HintType
 [System.Serializable]
 public class HintItem
 {
+    [TextArea]
     public string hintText;
     public HintType type;
 

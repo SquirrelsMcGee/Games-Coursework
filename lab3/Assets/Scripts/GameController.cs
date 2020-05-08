@@ -49,7 +49,8 @@ public class GameController : MonoBehaviour
         timeSeconds = (int)timerFloat % 60;
         timerText.text = "Time Remaining: " + (roundTime - timeSeconds);
 
-        if (score == maxScore)
+        Debug.Log(shotsHit + "/" + maxScore);
+        if (shotsHit >= maxScore)
         {
             roundOver = RoundOverState.Win;
             EndRound();
@@ -85,6 +86,7 @@ public class GameController : MonoBehaviour
                     break;
                 }
         }
+        this.enabled = false;
     }
 
 

@@ -42,7 +42,7 @@ public class BulletController : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        Debug.Log(collision.gameObject.tag);
+
         switch (collision.gameObject.tag)
         {
             case "Enemy":

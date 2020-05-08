@@ -13,21 +13,67 @@ MonoBehaviour:
   m_Name: TutorialHints
   m_EditorClassIdentifier: 
   hints:
-  - hintText: Welcome to my Game! This tutorial will help you understand the basics
+  - hintText: 'Welcome to my Game! This tutorial will help you understand the basics
       of how to play.
-    type: 0
-    time: 7
-    appearObject: {fileID: 0}
-  - hintText: 'Controls: Use the WSAD keys to move around, and the mouse to look.'
-    type: 0
-    time: 7
-    appearObject: {fileID: 0}
-  - hintText: Click the left mouse button to use items, and press SPACE to jump around.
-    type: 0
-    time: 7
-    appearObject: {fileID: 0}
-  - hintText: Press the Enter key to start the level
+
+      (Press Enter to advance hints)'
     type: 1
     time: 0
+    appearObject: {fileID: 3474171218644464590, guid: 70523c84a8de07047bc6669f1c3cbe82,
+      type: 3}
+  - hintText: 'Controls: Use the WSAD keys to move around, and the mouse to look.
+
+      (Enter)'
+    type: 1
+    time: 0
+    appearObject: {fileID: 3474171218644464590, guid: 70523c84a8de07047bc6669f1c3cbe82,
+      type: 3}
+  - hintText: 'Click the left mouse button to use items, and press SPACE to jump
+      around.
+
+      (Enter)'
+    type: 1
+    time: 0
+    appearObject: {fileID: 3474171218644464590, guid: 70523c84a8de07047bc6669f1c3cbe82,
+      type: 3}
+  - hintText: 'Your goal is to defend the tower.
+
+      Enemies will come from the
+      portal to destroy it. Don''t let them win!
+
+      (Enter)'
+    type: 1
+    time: 0
+    appearObject: {fileID: 3474171218644464590, guid: 70523c84a8de07047bc6669f1c3cbe82,
+      type: 3}
+  - hintText: 'Use your gun to shoot enemies. When you have defeated enough, you
+      can place turrets. Press 1 to equip your gun. Press 2 to equip the turret builder.
+
+'
+    type: 0
+    time: 5
+    appearObject: {fileID: 0}
+  - hintText: 'Note: You can only place turrets within the orange area.
+
+      (Enter)'
+    type: 1
+    time: 0
+    appearObject: {fileID: 3474171218644464590, guid: 70523c84a8de07047bc6669f1c3cbe82,
+      type: 3}
+  - hintText: 'If you want, walk around the arena to get used to the controls.
+
+      When
+      you''re ready, press Enter to start the round.
+
+      (Enter)'
+    type: 1
+    time: 0
+    appearObject: {fileID: 3474171218644464590, guid: 70523c84a8de07047bc6669f1c3cbe82,
+      type: 3}
+  - hintText: 'Round begins in 3 seconds. Good luck!
+
+'
+    type: 0
+    time: 3
     appearObject: {fileID: 3474171218644464590, guid: 70523c84a8de07047bc6669f1c3cbe82,
       type: 3}

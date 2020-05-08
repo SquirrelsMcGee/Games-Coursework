@@ -67,8 +67,8 @@ public class BasicEnemyController : MonoBehaviour
 
     protected virtual void TimedUpdate()
     {
-        animator.SetBool("idle", true);
-        animator.SetBool("atk", false);
+        if (animator != null) animator.SetBool("idle", true);
+        if (animator != null) animator.SetBool("atk", false);
 
         deltaTime += Time.deltaTime;
         if (deltaTime >= fireRate)
@@ -77,11 +77,12 @@ public class BasicEnemyController : MonoBehaviour
             GameObject bullet = Instantiate(bulletPrefab, shotTransform.position, shotTransform.rotation);
             bullet.GetComponent<BulletController>().parentLayerMask = gameObject.layer;
             bullet.GetComponent<BulletController>().damage = damage;
-            animator.SetBool("idle", false);
-            animator.SetBool("atk", true);
+            if (animator != null) animator.SetBool("idle", false);
+            if (animator != null) animator.SetBool("atk", true);
             
         }
     }
+
     protected void OnTriggerEnter(Collider other)
     {
         StartCoroutine(DelayedTrigger(other, 0.0f));
@@ -93,23 +94,25 @@ public class BasicEnemyController : MonoBehaviour
         if (other.gameObject.CompareTag("Target"))
         {
             agent.isStopped = true;
-            animator.SetBool("idle", false);
+            if (animator != null) animator.SetBool("idle", false);
         }
     }
 
     protected virtual void OnDestroy()
     {
-        GameController.Instance.achievedScore += 1;
+        GameController.Instance.AddScore(1);
         GameController.Instance.GameEventLoss -= OnGameEnd;
         GameController.Instance.GameEventLoss -= OnGameLoss;
         GameController.Instance.GameEventLoss -= OnGameWin;
+
+        print("Achieved Score: " + GameController.Instance.achievedScore);
     }
 
     IEnumerator DelayedDestroy()
     {
-        animator.SetBool("atk", false);
-        animator.SetBool("idle", false);
-        animator.SetBool("die", true);
+        if (animator != null) animator.SetBool("atk", false);
+        if (animator != null) animator.SetBool("idle", false);
+        if (animator != null) animator.SetBool("die", true);
 
         gameObject.layer = 0;
         GetComponent<CapsuleCollider>().enabled = false;

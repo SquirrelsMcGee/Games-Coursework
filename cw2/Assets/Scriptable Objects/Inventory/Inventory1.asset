@@ -15,10 +15,11 @@ MonoBehaviour:
   inventoryItems:
   - itemName: BasicGun
     previewImage: {fileID: 0}
-    previewObject: {fileID: 0}
+    previewObject: {fileID: 6091367177541614102, guid: 58b659f376510dd41b7fd61aad8e3dc2,
+      type: 3}
     usableObject: {fileID: 0}
     itemType: 1
-    useCost: 0
+    useCost: 300
     enabled: 1
   - itemName: BasicTurret
     previewImage: {fileID: 21300000, guid: a300435ae59b2944b9dab29805316fbd, type: 3}
@@ -27,13 +28,5 @@ MonoBehaviour:
     usableObject: {fileID: 2056896548407475597, guid: 53136bb139eea6940b09b457c4ad689c,
       type: 3}
     itemType: 0
-    useCost: 0
-    enabled: 1
-  selectedItem:
-    itemName: BasicGun
-    previewImage: {fileID: 0}
-    previewObject: {fileID: 0}
-    usableObject: {fileID: 0}
-    itemType: 1
-    useCost: 0
+    useCost: 1
     enabled: 1
