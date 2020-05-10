@@ -327,7 +327,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 2
-  m_Height: 6.11
+  m_Height: 6
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &3728317331970216661
@@ -340,7 +340,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 2
-  m_Speed: 0.5
+  m_Speed: 0.2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -373,9 +373,9 @@ MonoBehaviour:
   animator: {fileID: 8116529004254715190}
   textUI: {fileID: 3728317331933094425}
   damage: 5
-  fireRate: 3
+  fireRate: 1
   health: 5
-  maxHealth: 20
+  maxHealth: 100
 --- !u!208 &5977842587499845147
 NavMeshObstacle:
   m_ObjectHideFlags: 0

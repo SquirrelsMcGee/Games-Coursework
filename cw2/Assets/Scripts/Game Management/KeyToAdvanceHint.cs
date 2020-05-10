@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Sets the HUDHints wait flag when the given key is detected as being pressed
+/// </summary>
 public class KeyToAdvanceHint : MonoBehaviour
 {
     public string KeyName;

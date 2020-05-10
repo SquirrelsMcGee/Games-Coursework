@@ -1,61 +1,90 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using TMPro;
-using UnityEngine.UI;
 
 
+/// <summary>
+/// Basic enemy behaviour
+/// </summary>
 [RequireComponent(typeof(NavMeshAgent))]
 public class BasicEnemyController : MonoBehaviour
 {
-    [HideInInspector]
-    public Transform targetPosition;
-    [HideInInspector]
-    public Vector3 destination;
 
+
+    [Header("Object References")]
     public Transform weaponTransform;
     public Transform shotTransform;
     public GameObject bulletPrefab;
-
-    public Animator animator;
-
     public TextMeshProUGUI textUI;
 
-    public int damage = 10;
+    [Header("Animation Control")]
+    public Animator animator;
+
+    [Header("Behaviour Settings")]
+    [Tooltip("How much damage the enemy does on hit")]
+    public int damage = 1;
+    [Tooltip("How fast the enemy can fire")]
     public float fireRate = 1.0f;
-    [HideInInspector]
-    public int health = 0;
+
+    [Tooltip("The maximum health the enemy spawns with")]
     public int maxHealth = 5;
 
+    [HideInInspector]
+    // How much health the enemy has
+    public int health = 0;
+
+    [HideInInspector]
+    // The Transform of the object the enemy is trying to get to
+    public Transform targetPosition;
+
+    [HideInInspector]
+    // Vector3 position of the above transform
+    public Vector3 destination;
+
+    // Agent for navmesh navigation
     protected NavMeshAgent agent;
+    // Duration since last Timed Update
     protected float deltaTime = 0;
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        // Set the target destination for the enemy to navigate to
         agent = GetComponent<NavMeshAgent>();
         agent.destination = destination;
 
-        health = maxHealth;
+        // Set the health value
+        InitHealth();
 
-        GameController.Instance.GameEventLoss += OnGameEnd;
-        GameController.Instance.GameEventLoss += OnGameLoss;
-        GameController.Instance.GameEventLoss += OnGameWin;
+        // Subscribe the the End game event
+        GameController.Instance.GameEventEnd += OnGameEnd;
+    }
+
+    /// <summary>
+    /// Sets the current health value to the max health value
+    /// </summary>
+    public void InitHealth()
+    {
+        health = maxHealth;
     }
 
     // Update is called once per frame
     protected virtual void Update()
     {
+
+        // if the agent is stopped, then it is near the target
         if (agent.isStopped)
         {
+            // Fire bullets are the fire rate
             TimedUpdate();
 
+            // Aim at the target
             transform.LookAt(new Vector3(targetPosition.position.x, transform.position.y, targetPosition.position.z));
             weaponTransform.LookAt(targetPosition);
         }
 
-        
+        // Display the current and max health above the enemy
         textUI.text = health + "/" + maxHealth;
 
         if (health <= 0)
@@ -65,49 +94,70 @@ public class BasicEnemyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Updates when deltaTime >= fireRate
+    /// </summary>
     protected virtual void TimedUpdate()
     {
+        // Set the current animation to idle
         if (animator != null) animator.SetBool("idle", true);
         if (animator != null) animator.SetBool("atk", false);
 
         deltaTime += Time.deltaTime;
+
+        // If the fire rate duration has passed since the last time this section ran
         if (deltaTime >= fireRate)
         {
+            // Reset the delta time
             deltaTime = 0;
+
+            // Instantiate a bullet, and set its physics settings so it cannot damage other enemies
             GameObject bullet = Instantiate(bulletPrefab, shotTransform.position, shotTransform.rotation);
             bullet.GetComponent<BulletController>().parentLayerMask = gameObject.layer;
             bullet.GetComponent<BulletController>().damage = damage;
+
+            // Set the current animation to attacking
             if (animator != null) animator.SetBool("idle", false);
             if (animator != null) animator.SetBool("atk", true);
-            
         }
     }
 
     protected void OnTriggerEnter(Collider other)
     {
+        // If sub-class enemies wish to wait after reaching the target before stopping
         StartCoroutine(DelayedTrigger(other, 0.0f));
     }
 
     IEnumerator DelayedTrigger(Collider other, float delay)
     {
+        // Wait for the provided time
         yield return new WaitForSeconds(delay);
+
+        // Check if the enemy has reached the destination trigger collider
         if (other.gameObject.CompareTag("Target"))
         {
+
+            // Stop the agent
             agent.isStopped = true;
             if (animator != null) animator.SetBool("idle", false);
         }
     }
 
+    /// <summary>
+    /// Updates the game score when the enemy is destroyed
+    /// </summary>
     protected virtual void OnDestroy()
     {
         GameController.Instance.AddScore(1);
-        GameController.Instance.GameEventLoss -= OnGameEnd;
-        GameController.Instance.GameEventLoss -= OnGameLoss;
-        GameController.Instance.GameEventLoss -= OnGameWin;
+        GameController.Instance.GameEventEnd -= OnGameEnd;
 
         print("Achieved Score: " + GameController.Instance.achievedScore);
     }
 
+    /// <summary>
+    /// [Unused] Waits for the current animation to finish before destroying the enemy
+    /// </summary>
+    /// <returns></returns>
     IEnumerator DelayedDestroy()
     {
         if (animator != null) animator.SetBool("atk", false);
@@ -121,18 +171,9 @@ public class BasicEnemyController : MonoBehaviour
         Destroy(gameObject);
     }
 
+    // Destroys seld on when GameEventEnd is broadcast
     protected virtual void OnGameEnd(object s, GameEventArgs e)
     {
         Destroy(gameObject);
-    }
-
-    protected virtual void OnGameWin(object s, GameEventArgs e)
-    {
-        // Show Game Win Screen
-    }
-
-    protected virtual void OnGameLoss(object s, GameEventArgs e)
-    {
-        // Show Game Loss Screen
     }
 }

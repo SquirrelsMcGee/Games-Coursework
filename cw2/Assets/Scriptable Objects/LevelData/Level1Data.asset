@@ -17,4 +17,5 @@ MonoBehaviour:
   enemyList:
   - enemyPrefab: {fileID: 3422555961081331500, guid: 0d81075b0ab56d34e966c9ed335ad0e6,
       type: 3}
-    count: 20
+    count: 10
+    isBoss: 0

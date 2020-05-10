@@ -30,10 +30,19 @@ public class Inventory : MonoBehaviour
     public event EventHandler<InventoryEventArgs> ItemSwitchEvent;
     public event EventHandler<InventoryEventArgs> ItemUseEvent;
 
+    public static Inventory Instance { get; private set; }
+
     public void Awake()
     {
+        if (Instance == null) Instance = this;
+        else { Destroy(gameObject); }
+
+        // We don't do a Deep-copy of the InventoryData, so we need to reset any changed values on Start
+        inventoryData.ResetAllCreated(); // This removes the changes
+
         // Create a copy of the list from the InventoryDataManager object
         list = new List<ItemData>(inventoryData.inventoryItems);
+        
     }
 
     /// <summary>

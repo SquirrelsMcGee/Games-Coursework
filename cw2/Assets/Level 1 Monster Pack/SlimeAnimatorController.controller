@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: bat_attack
+  m_Name: attack
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -22,7 +22,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400004, guid: 59afa1f2c595d6343b15e945602e1f8f, type: 3}
+  m_Motion: {fileID: 7400004, guid: e607f74860c67814e93c914b710142d5, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -63,7 +63,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: bat_idle
+  m_Name: idle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -78,7 +78,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 59afa1f2c595d6343b15e945602e1f8f, type: 3}
+  m_Motion: {fileID: 7400000, guid: e607f74860c67814e93c914b710142d5, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -243,7 +243,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: bat_die
+  m_Name: die
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -257,7 +257,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400008, guid: 59afa1f2c595d6343b15e945602e1f8f, type: 3}
+  m_Motion: {fileID: 7400006, guid: e607f74860c67814e93c914b710142d5, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

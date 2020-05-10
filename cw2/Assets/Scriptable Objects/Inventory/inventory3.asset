@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46463112b431d7e4882ed97627edbd36, type: 3}
+  m_Name: inventory3
+  m_EditorClassIdentifier: 
+  inventoryItems:
+  - itemName: Gun
+    previewImage: {fileID: 0}
+    previewObject: {fileID: 6091367177541614102, guid: 58b659f376510dd41b7fd61aad8e3dc2,
+      type: 3}
+    usableObject: {fileID: 0}
+    itemType: 1
+    useCost: 300
+    enabled: 1
+  - itemName: Basic Turret
+    previewImage: {fileID: 21300000, guid: a300435ae59b2944b9dab29805316fbd, type: 3}
+    previewObject: {fileID: 4625449733832210946, guid: a3d6911b100f5c446882f21e87ff0214,
+      type: 3}
+    usableObject: {fileID: 2056896548407475597, guid: 53136bb139eea6940b09b457c4ad689c,
+      type: 3}
+    itemType: 0
+    useCost: 2
+    enabled: 1
+  - itemName: Healing Tower
+    previewImage: {fileID: 21300000, guid: a03cd70634502be459726d5d64253ce0, type: 3}
+    previewObject: {fileID: 695663402450993390, guid: 28fe5aaf8575f544aa8c1fa88e6c6f70,
+      type: 3}
+    usableObject: {fileID: 8485257391957821018, guid: 21296fa93aea66048ae0f203d154a88a,
+      type: 3}
+    itemType: 0
+    useCost: 3
+    enabled: 1
+  - itemName: Advanced Turret
+    previewImage: {fileID: 21300000, guid: f0d8e107362ce2d4b9666a1657c83218, type: 3}
+    previewObject: {fileID: 5621395703240622596, guid: 5644c40b908e78e48a2c0b79de9bfc28,
+      type: 3}
+    usableObject: {fileID: 2830696230687269725, guid: e570b07c97730ad49b5c0b0911d8bcb4,
+      type: 3}
+    itemType: 0
+    useCost: 4
+    enabled: 1
